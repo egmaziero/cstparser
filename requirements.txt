@@ -1,0 +1,7 @@
+jupyter
+nltk
+joblib
+unidecode
+spacy
+sklearn
+googletrans
