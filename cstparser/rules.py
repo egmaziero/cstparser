@@ -2,7 +2,7 @@ import json
 import os
 import logging
 import xml.etree.ElementTree as xml_parser
-from googletrans import Translator
+#from googletrans import Translator
 from preprocess import normalize, nlp_analysis, get_sentence
 
 
