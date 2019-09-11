@@ -145,6 +145,7 @@ def apply_rules(selected_pairs, analysis_path, embed):
             matched_rules.append([result, d2[0], d2[1], d1[0], d1[1], ])
 
     with open(os.path.join(analysis_path, 'CST.xml'), 'w') as cst_file:
+        cst_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         for rule, sd, ss, td, ts in matched_rules:
             if embed:
                 s1 = get_sentence([sd, ss], analysis_path)
