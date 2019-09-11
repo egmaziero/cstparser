@@ -146,15 +146,16 @@ def apply_rules(selected_pairs, analysis_path, embed):
 
     with open(os.path.join(analysis_path, 'CST.xml'), 'w') as cst_file:
         cst_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        cst_file.write('\t<RELATIONS>\n')
         for rule, sd, ss, td, ts in matched_rules:
             if embed:
                 s1 = get_sentence([sd, ss], analysis_path)
                 s2 = get_sentence([td, ts], analysis_path)
                 cst_file.write(
-                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(s1), td, escape(s2)))
+                    '\t\t<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(s1), td, escape(s2)))
             else:
                 cst_file.write(
-                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(ss), td, escape(ts)))
+                    '<\t\tR SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(ss), td, escape(ts)))
             cst_file.write(
-                '\t<RELATION TYPE="{}" JUDGE="CSTParser_rule"/>\n'.format(rule))
-            cst_file.write('</R>\n')
+                '\t\t\t<RELATION TYPE="{}" JUDGE="CSTParser_rule"/>\n'.format(rule))
+            cst_file.write('\t\t</R>\n')

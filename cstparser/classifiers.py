@@ -19,14 +19,14 @@ def write_results(selected_pairs, results, analysis_path, embed):
             if embed:
                 s1 = get_sentence(d1, analysis_path)
                 s2 = get_sentence(d2, analysis_path)
-                cst_file.write('<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
+                cst_file.write('\t\t<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
                     d1[0], escape(s1), d2[0], escape(s2)))
             else:
-                cst_file.write('<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
+                cst_file.write('<\t\tR SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
                     d1[0], escape(d1[1]), d2[0], escape(d2[1])))
             cst_file.write(
-                '\t<RELATION TYPE="{}" JUDGE="CSTParser_classifier"/>\n'.format(results[i]))
-            cst_file.write('</R>\n')
+                '\t\t\t<RELATION TYPE="{}" JUDGE="CSTParser_classifier"/>\n'.format(results[i]))
+            cst_file.write('\t\t</R>\n')
 
 
 def multiclass_classify(selected_pairs, features, analysis_path, embed):
@@ -36,3 +36,7 @@ def multiclass_classify(selected_pairs, features, analysis_path, embed):
         write_results(selected_pairs, results, analysis_path, embed)
     else:
         logging.info('No instances to classify ...')
+
+    # closing cst xml file
+    with open(os.path.join(analysis_path, 'CST.xml'), 'a+') as cst_file:
+        cst_file.write('\t</RELATIONS>\n')
