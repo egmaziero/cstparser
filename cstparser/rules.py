@@ -6,7 +6,7 @@ import xml.etree.ElementTree as xml_parser
 from preprocess import normalize, nlp_analysis, get_sentence
 
 
-translator = Translator()
+# translator = Translator()
 
 
 numbers_conversion = {}
