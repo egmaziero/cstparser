@@ -6,7 +6,7 @@ import unidecode
 import string
 import xml.etree.ElementTree as xml_parser
 import datetime
-from xml.sax.saxutils import escape, unescape
+from xml.sax.saxutils import escape
 
 
 annotator = spacy.load('pt_core_news_sm')
@@ -54,7 +54,7 @@ def get_sentence(d, analysis_path):
         sentences = root.findall('BODY/TEXT/S')
         for s in sentences:
             if s.get('SNO') == sentence_number:
-                return unescape(s.text)
+                return s.text.replace('"', "&quot;")
 
 
 def get_number_of_sentences(d, analysis_path):
