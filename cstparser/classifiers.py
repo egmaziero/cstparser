@@ -4,6 +4,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import MinMaxScaler
 from preprocess import get_sentence
 from joblib import load
+from xml.sax.saxutils import escape, unescape
 
 
 classifier = load('models/mlp_multiclass_classifier.joblib')
@@ -19,10 +20,10 @@ def write_results(selected_pairs, results, analysis_path, embed):
                 s1 = get_sentence(d1, analysis_path)
                 s2 = get_sentence(d2, analysis_path)
                 cst_file.write('<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
-                    d1[0], s1, d2[0], s2))
+                    d1[0], escape(s1), d2[0], escape(s2)))
             else:
                 cst_file.write('<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(
-                    d1[0], d1[1], d2[0], d2[1]))
+                    d1[0], escape(d1[1]), d2[0], escape(d2[1])))
             cst_file.write(
                 '\t<RELATION TYPE="{}" JUDGE="CSTParser_classifier"/>\n'.format(results[i]))
             cst_file.write('</R>\n')

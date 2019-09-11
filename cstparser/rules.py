@@ -4,6 +4,8 @@ import logging
 import xml.etree.ElementTree as xml_parser
 #from googletrans import Translator
 from preprocess import normalize, nlp_analysis, get_sentence
+from xml.sax.saxutils import escape, unescape
+
 
 
 # translator = Translator()
@@ -148,10 +150,10 @@ def apply_rules(selected_pairs, analysis_path, embed):
                 s1 = get_sentence([sd, ss], analysis_path)
                 s2 = get_sentence([td, ts], analysis_path)
                 cst_file.write(
-                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, s1, td, s2))
+                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(s1), td, escape(s2)))
             else:
                 cst_file.write(
-                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, ss, td, ts))
+                    '<R SDID="{}" SSENT="{}" TDID="{}" TSENT="{}">\n'.format(sd, escape(ss), td, escape(ts)))
             cst_file.write(
                 '\t<RELATION TYPE="{}" JUDGE="CSTParser_rule"/>\n'.format(rule))
             cst_file.write('</R>\n')
